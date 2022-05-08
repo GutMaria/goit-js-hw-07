@@ -37,11 +37,29 @@ function onGalleryClick(evt) {
     }
     // 3. модальнe вікно basicLightbox
     const modalImgToShow = basicLightbox.create(
-        `<img src="${evt.target.dataset.source}" width="800" height="600">`)
+        `<img src="${evt.target.dataset.source}" width="800" height="600">`,
+    {        closable: true,
+    onShow: (modalImgToShow) => { window.addEventListener('keydown', onModalPressEsc) },
+    onClose: (modalImgToShow) => {window.removeEventListener('keydown', onModalPressEsc)},
+    }
+    )
     modalImgToShow.show();
 
-    // document.addEventListener("keydown",
+    // 4.закриття через Esc
+    function onModalPressEsc(evt) {
+    if (evt.code === "Escape") {
+        modalImgToShow.close();
+    }
+    }
 }
+
+// Хотіла якось спростити код, 
+// винести змінну модального вікна за межі функції onGalleryClick,
+// і функцію onModalPressEsc,
+// але тоді нічого НЕ працює...
+
+
+
 
 
 
